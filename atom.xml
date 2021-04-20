@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://ChrisLincat.github.io</id>
     <title>Gridea</title>
-    <updated>2021-04-20T12:42:45.418Z</updated>
+    <updated>2021-04-20T12:51:04.847Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://ChrisLincat.github.io"/>
     <link rel="self" href="https://ChrisLincat.github.io/atom.xml"/>
@@ -10,6 +10,84 @@
     <logo>https://ChrisLincat.github.io/images/avatar.png</logo>
     <icon>https://ChrisLincat.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, Gridea</rights>
+    <entry>
+        <title type="html"><![CDATA[test]]></title>
+        <id>https://ChrisLincat.github.io/post/test/</id>
+        <link href="https://ChrisLincat.github.io/post/test/">
+        </link>
+        <updated>2021-04-20T12:45:28.000Z</updated>
+        <content type="html"><![CDATA[<style>
+body{
+    height: 100vh;
+    width: 100vw; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    background: linear-gradient(60deg,rgb(236, 148, 96),rgb(88, 184, 228)); 
+    /* background: linear-gradient(90deg,rgb(236, 148, 96),rgb(88, 184, 228),rgb(116, 228, 88),rgb(236, 148, 96)); */
+    /* background-size: 200%; */
+    /* animation: key 10s linear infinite; */
+}
+.d {
+    /* width: 100px; */
+    color: rgba(0, 0, 0, .6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    font-size: 32px;
+    font-weight: bold;
+    background: rgba(238, 238, 238,0.5);
+    border-radius: 6px;
+    box-shadow: 0 6px 32px -16px rgba(0, 0, 0, 0.6);
+    padding: 10px;
+    margin: 10px;
+    perspective: 1600px;
+    transition: .3s cubic-bezier(0.22, 0.61, 0.36, 1);
+    user-select: none;
+}
+.d span {
+    transition: .3s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.d .love {
+    color: rgb(238, 91, 91);
+}
+.d:hover {
+    background-color: rgba(238, 238, 238,1);
+    color:rgba(0, 0, 0, .8);
+    /* transform: rotate3d(30deg,0deg,20deg); */
+    transform: scale(1.2);
+}
+.d:active {
+    transform: scale(0.8);
+}
+@keyframes key {
+    0% {
+        background-position-x: 0;
+    }
+    100% {
+        background-position-x: 200%;
+    }
+}
+
+</style>
+<div class="d">
+Hello world
+</div>
+    1]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[asdasdasdas]]></title>
+        <id>https://ChrisLincat.github.io/post/asdasdasdas/</id>
+        <link href="https://ChrisLincat.github.io/post/asdasdasdas/">
+        </link>
+        <updated>2021-04-20T12:44:18.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="asdasdasd">asdasdasd</h1>
+<h3 id="asdasdasdasdasd">asdasdasdasdasd</h3>
+<p>Lin</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Hello Gridea]]></title>
         <id>https://ChrisLincat.github.io/post/hello-gridea/</id>

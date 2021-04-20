@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ch">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1</title>
+    <style>
+        body{
+            height: 100vh;
+            width: 100vw; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            background: linear-gradient(60deg,rgb(236, 148, 96),rgb(88, 184, 228)); 
+            /* background: linear-gradient(90deg,rgb(236, 148, 96),rgb(88, 184, 228),rgb(116, 228, 88),rgb(236, 148, 96)); */
+            /* background-size: 200%; */
+            /* animation: key 10s linear infinite; */
+        }
+        .d {
+            /* width: 100px; */
+            color: rgba(0, 0, 0, .6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+            font-size: 32px;
+            font-weight: bold;
+            background: rgba(238, 238, 238,0.5);
+            border-radius: 6px;
+            box-shadow: 0 6px 32px -16px rgba(0, 0, 0, 0.6);
+            padding: 10px;
+            margin: 10px;
+            perspective: 1600px;
+            transition: .3s cubic-bezier(0.22, 0.61, 0.36, 1);
+            user-select: none;
+        }
+        .d span {
+            transition: .3s cubic-bezier(0.22, 0.61, 0.36, 1);
+        }
+        .d .love {
+            color: rgb(238, 91, 91);
+        }
+        .d:hover {
+            background-color: rgba(238, 238, 238,1);
+            color:rgba(0, 0, 0, .8);
+            /* transform: rotate3d(30deg,0deg,20deg); */
+            transform: scale(1.2);
+        }
+        .d:active {
+            transform: scale(0.8);
+        }
+        @keyframes key {
+            0% {
+                background-position-x: 0;
+            }
+            100% {
+                background-position-x: 200%;
+            }
+        }
+
+    </style>
+</head>
+<body  >
+    <div class="d">
+        Hello world
+    </div>
+    <script>
+        const target = document.querySelector('.d');
+        let lastText = target.textContent.trim().split('');
+        target.innerHTML = lastText.map((v)=>`<span>${v}</span>`).join('');
+        lastText = lastText.map((v)=>'❤')
+        target.addEventListener('click',()=>{
+            const children = target.querySelectorAll('span');
+            for(let i = 0;i<children.length;i++) {
+                const child = children[i];
+                child.classList.toggle('love');
+                child.style.transitionDelay = `${i/children.length}s`;
+                const tmp = child.innerHTML;
+                child.innerHTML = lastText[i];
+                lastText[i] = tmp;
+
+            }
+        })
+    </script>
+</body>
+
+</html>
+
