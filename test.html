@@ -1,23 +1,44 @@
 <!DOCTYPE html>
 <html lang="ch">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>1</title>
     <style>
-        body{
+        body {
             height: 100vh;
-            width: 100vw; 
+            width: 100vw;
             display: flex;
             justify-content: center;
             align-items: center;
             margin: 0;
-            background: linear-gradient(60deg,rgb(236, 148, 96),rgb(88, 184, 228)); 
+            background: linear-gradient(60deg, rgb(236, 148, 96), rgb(88, 184, 228));
             /* background: linear-gradient(90deg,rgb(236, 148, 96),rgb(88, 184, 228),rgb(116, 228, 88),rgb(236, 148, 96)); */
             /* background-size: 200%; */
             /* animation: key 10s linear infinite; */
         }
+
+        .continue {
+            color: rgba(0, 0, 0, 0);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 50px;
+            font-size: 20px;
+            font-weight: 100px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            background-color: rgba(238, 238, 238, 0.5);
+            padding: 18px;
+            border-radius: 8px;
+            box-shadow: 0 5px 23px -6px rgba(0, 0, 0, 0.2);
+            margin: 10px;
+            perspective: 1600px;
+            transition: .2s cubic-bezier(0.075, 0.82, 0.165, 1);
+            user-select: auto;
+        }
+
         .d {
             /* width: 100px; */
             color: rgba(0, 0, 0, .6);
@@ -27,7 +48,7 @@
             height: 100px;
             font-size: 32px;
             font-weight: bold;
-            background: rgba(238, 238, 238,0.5);
+            background: rgba(238, 238, 238, 0.5);
             border-radius: 6px;
             box-shadow: 0 6px 32px -16px rgba(0, 0, 0, 0.6);
             padding: 10px;
@@ -36,55 +57,104 @@
             transition: .3s cubic-bezier(0.22, 0.61, 0.36, 1);
             user-select: none;
         }
+
         .d span {
             transition: .3s cubic-bezier(0.22, 0.61, 0.36, 1);
         }
+
         .d .love {
             color: rgb(238, 91, 91);
         }
+
         .d:hover {
-            background-color: rgba(238, 238, 238,1);
-            color:rgba(0, 0, 0, .8);
+            background-color: rgba(238, 238, 238, 1);
+            color: rgba(0, 0, 0, .8);
             /* transform: rotate3d(30deg,0deg,20deg); */
-            transform: scale(1.2);
+            transform: scale(1.3);
         }
+
+        .continue:hover {
+            transform: scale(1.3);
+            transition: .23s cubic-bezier(0.2, 0.25, 0.355, 1);
+            transform: rotate(20deg, 8deg, 29deg);
+            background-color: rgba(54, 54, 54, 0.6);
+            color: rgba(248, 245, 245);
+
+        }
+
+        .continue:active {
+            background-color: rgba(238, 238, 238, 0.6);
+            color: rgba(0, 0, 0, .6);
+            transform: scale(0.7);
+        }
+
         .d:active {
             transform: scale(0.8);
         }
+
+        .hidden {
+            opacity: 0;
+            pointer-events: none;
+            position: absolute;
+        }
+
         @keyframes key {
             0% {
                 background-position-x: 0;
             }
+
             100% {
                 background-position-x: 200%;
             }
         }
-
     </style>
 </head>
-<body  >
+
+<body>
     <div class="d">
-        Hello world
+        Hello world</div>
+    <div class="continue hidden">
+        你发现了一只霖崽
     </div>
     <script>
-        const target = document.querySelector('.d');
-        let lastText = target.textContent.trim().split('');
-        target.innerHTML = lastText.map((v)=>`<span>${v}</span>`).join('');
-        lastText = lastText.map((v)=>'❤')
-        target.addEventListener('click',()=>{
-            const children = target.querySelectorAll('span');
-            for(let i = 0;i<children.length;i++) {
-                const child = children[i];
-                child.classList.toggle('love');
-                child.style.transitionDelay = `${i/children.length}s`;
-                const tmp = child.innerHTML;
-                child.innerHTML = lastText[i];
-                lastText[i] = tmp;
+        function initButton(queryStr, initialStr, nextTextList) {
+            const target = document.querySelector(queryStr);
+            target.innerHTML = initialStr.trim().split('').map((ch) => ch == ' ' ? '&nbsp;' : ch).map((v) => `<span>${v}</span>`).join('');
+            target.querySelectorAll('span').forEach(function (child, i, children) {
+                child.dataset['next'] = nextTextList[i];
+                child.style.transitionDelay = `${i / children.length}s`;
+            });
+            function click() {
+                const children = target.querySelectorAll('span');
+                for (let i = 0; i < children.length; i++) {
+                    const child = children[i];
+                    child.classList.toggle('love');
+                    const tmp = child.innerHTML;
+                    child.innerHTML = child.dataset['next'];
+                    child.dataset['next'] = tmp;
 
+                }
             }
+            target.addEventListener('click', click);
+            return function () {
+                target.removeEventListener('click',click);
+            }
+        }
+        let drop = initButton('.d', "Hello lin", Array(100).fill('❤'))
+        document.querySelector('.d').addEventListener('click',function change() {
+            let count = parseInt(this.dataset['count']||'0');
+            if(count >= 2) {
+                drop();
+                initButton('.d',"你发现了一只霖崽",Array(100).fill('❤'));
+                this.dataset['count'] = 0;
+                this.classList.add('continue')
+                this.removeEventListener('click',change)
+                return;
+            }
+           this.dataset['count'] = ++count;
         })
+
     </script>
 </body>
 
 </html>
-
